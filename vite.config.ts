@@ -11,6 +11,10 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
 
+			// Compile everything under src/lib/elements as custom elements.
+			dynamicCompileOptions: ({ filename }) =>
+				/[/\\]src[/\\]lib[/\\]elements[/\\]/.test(filename) ? { customElement: true } : undefined,
+
 			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
 			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
