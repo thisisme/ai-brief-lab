@@ -1,56 +1,51 @@
-# sv
+# ai-brief-lab
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A sandbox for trying out AI-assisted development workflows with Claude Code, on top of a small SvelteKit 3 / Svelte 5 codebase. The app code is deliberately small; the point is the tooling around it and what the experiments show. Results are logged in [`LABS.md`](LABS.md).
 
-## Creating a project
+## What's in here
 
-If you're seeing this, you've probably already done this step. Congrats!
+### SvelteKit app (`src/`)
 
-```sh
-# create a new project
-npx sv create my-app
-```
+- `/products` loads a product list server-side from the endpoint in `PRODUCTS_API_URL` and validates its shape (`src/lib/products.ts`). A bad response becomes a 502 error page.
+- `StockList.svelte` and `Counter.svelte` are the plain Svelte components behind it.
+- Import shared code from `#lib` (not `$lib`).
 
-To recreate this project with the same configuration:
+### Svelte custom elements for a PHP host (`src/lib/elements/`, `hosts/php/`)
 
-```sh
-# recreate this project
-npx sv@1.1.0 create --template minimal --types ts --install npm ai-brief-lab
-```
+Svelte components compiled as web components, so they can be dropped into a non-Svelte page:
 
-## Adding features
+- `<stock-badge sku qty low-at>` shows stock status (ok, low or out) and fires a `restock` event.
+- `<lab-counter count>` is a doubling counter that fires `change`.
 
-Add features to your project with `sv add`:
+`src/elements.js` is the entry point. `npm run elements:build` bundles it to `hosts/php/public/build/elements.js`. The demo host in `hosts/php/public/` is a plain PHP page that renders the elements. `npm run elements:smoke` loads that page in Playwright and checks that the tags register.
 
-```sh
-npx sv add
-```
+### Claude Code experiments (`.claude/`, `scripts/`)
 
-For example, to add Tailwind CSS:
+- `.claude/CLAUDE.md`, `rules/` (Svelte, PHP and custom-element conventions), `agents/check-runner.md`, `skills/verify` and `hooks/` (svelte-check on edit, instruction logging) make up the project's Claude setup.
+- `scripts/ab-model.sh "<task>"` runs the same task on Sonnet and Opus in throwaway git worktrees and compares cost, time and files changed.
+- `scripts/models.mjs` lists the models, effort levels and thinking support reported by the Anthropic Models API. With `--lint`, it checks that the `effort` set in agent and skill frontmatter is valid for the model in use. It needs `ANTHROPIC_API_KEY`, or `MODELS_FIXTURE` pointing at a saved response (see `scripts/fixtures/models.json`).
+- `pr-baseline.sh FROM TO` reports merged-PR count, median and p75 hours to merge, and reverts for a date range (needs `gh` and `jq`).
+- `LABS.md` is the running log of experiment results.
 
-```sh
-npx sv add tailwindcss
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Setup
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm install
+cp .env.example .env   # set PRODUCTS_API_URL
 ```
 
-## Building
+## Commands
 
-To create a production version of your app:
+| Command                   | What it does                                                |
+| ------------------------- | ----------------------------------------------------------- |
+| `npm run dev`             | Start the SvelteKit dev server                              |
+| `npm run build`           | Production build of the app                                 |
+| `npm run preview`         | Preview the production build                                |
+| `npm run check`           | `svelte-check` type and component checks                    |
+| `npm run elements:build`  | Build the custom elements into the PHP host                 |
+| `npm run elements:serve`  | Serve the PHP demo at http://127.0.0.1:8099 (needs PHP)     |
+| `npm run elements:smoke`  | Playwright smoke test against the served demo               |
+| `npm run models`          | Table of Claude models and their capabilities               |
+| `npm run agents:effort`   | Lint `effort` settings in `.claude/agents` and skills       |
 
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Typical custom-element loop: `npm run elements:build`, `npm run elements:serve`, then `npm run elements:smoke` in another terminal.
