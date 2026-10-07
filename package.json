@@ -12,7 +12,9 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --compiler-warnings options_missing_custom_element:ignore --watch",
     "elements:build": "vite build -c vite.elements.config.js",
     "elements:serve": "php -S 127.0.0.1:8099 -t hosts/php/public",
-    "elements:smoke": "node scripts/elements-smoke.mjs http://127.0.0.1:8099/ stock-badge lab-counter"
+    "elements:smoke": "node scripts/elements-smoke.mjs http://127.0.0.1:8099/ stock-badge lab-counter",
+    "models": "node scripts/models.mjs",
+    "agents:effort": "node scripts/models.mjs --lint"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
