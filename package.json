@@ -1,29 +1,32 @@
 {
-	"name": "ai-brief-lab",
-	"private": true,
-	"version": "0.0.1",
-	"type": "module",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^8.0.0",
-		"@sveltejs/kit": "^3.0.0",
-		"@sveltejs/mcp": "^0.1.26",
-		"@sveltejs/vite-plugin-svelte": "^7.2.0",
-		"playwright": "^1.63.0",
-		"svelte": "^5.57.1",
-		"svelte-check": "^4.6.0",
-		"typescript": "^6.0.3",
-		"vite": "^8.3.0"
-	},
-	"imports": {
-		"#lib": "./src/lib/index.js",
-		"#lib/*": "./src/lib/*"
-	}
+  "name": "ai-brief-lab",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --compiler-warnings options_missing_custom_element:ignore",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --compiler-warnings options_missing_custom_element:ignore --watch",
+    "elements:build": "vite build -c vite.elements.config.js",
+    "elements:serve": "php -S 127.0.0.1:8099 -t hosts/php/public",
+    "elements:smoke": "node scripts/elements-smoke.mjs http://127.0.0.1:8099/ stock-badge lab-counter"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^8.0.0",
+    "@sveltejs/kit": "^3.0.0",
+    "@sveltejs/mcp": "^0.1.26",
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "playwright": "^1.63.0",
+    "svelte": "^5.57.1",
+    "svelte-check": "^4.6.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.0"
+  },
+  "imports": {
+    "#lib": "./src/lib/index.js",
+    "#lib/*": "./src/lib/*"
+  }
 }
