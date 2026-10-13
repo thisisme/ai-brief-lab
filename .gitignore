@@ -23,4 +23,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 .claude/*.log
+.claude/gate.log
+.claude/.done-gate-*
+
 hosts/php/public/build/

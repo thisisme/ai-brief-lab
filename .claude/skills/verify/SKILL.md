@@ -6,11 +6,12 @@ description: Run the project's checks before a commit. Use right before
 
 Run, in order, and stop at the first failure:
 
-1. npm run check
+1. npm run gate (must print "gate: ok" or "gate: no code changes";
+   the commit hook runs the same script and blocks commits while it fails)
 2. npm run build
 3. vendor/bin/phpstan analyse --no-progress (only if vendor/bin/phpstan exists)
-4. If src/lib/elements/ changed: npm run elements:build, start npm run elements:serve
-   in the background, run npm run elements:smoke, then stop the server.
+4. If src/lib/elements/ changed: start npm run elements:serve in the background,
+   run npm run elements:smoke, then stop the server.
 5. If anything under .claude/agents/ or .claude/skills/ changed: npm run agents:effort
    Fix mechanical failures (types, imports, lint) and re-run.
    If something needs a design decision, stop and report file:line instead of committing.
