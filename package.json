@@ -15,7 +15,8 @@
     "elements:smoke": "node scripts/elements-smoke.mjs http://127.0.0.1:8099/ stock-badge lab-counter",
     "models": "node scripts/models.mjs",
     "agents:effort": "node scripts/models.mjs --lint",
-    "gate": "bash scripts/gate.sh"
+    "gate": "bash scripts/gate.sh",
+    "doctor": "node scripts/claude-doctor.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
