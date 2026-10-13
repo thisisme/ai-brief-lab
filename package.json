@@ -16,7 +16,8 @@
     "models": "node scripts/models.mjs",
     "agents:effort": "node scripts/models.mjs --lint",
     "gate": "bash scripts/gate.sh",
-    "doctor": "node scripts/claude-doctor.mjs"
+    "doctor": "node scripts/claude-doctor.mjs",
+    "form:smoke": "node scripts/form-smoke.mjs http://127.0.0.1:8099/order.php"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
