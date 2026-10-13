@@ -3,3 +3,4 @@
 | 20261005 | - | Yes | opus $0.1526578 13s 1 files changed |
 | 20261007 | per-call efforter | Yes | 2 "perTurnEffort":"high" |
 | 20261007 | per-call efforter | Yes | 2 "perTurnEffort":"medium" |
+| 20261013 | gate check | Yes | hook exit=2 |
