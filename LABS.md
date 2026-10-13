@@ -5,3 +5,6 @@
 | 20261007 | per-call efforter | Yes | 2 "perTurnEffort":"medium" |
 | 20261013 | gate check | Yes | hook exit=2 |
 | 20261013 | gate check in claude | Yes | The commit was blocked by the PreToolUse hook |
+| 20261013 | doctor | Yes | SessionStart:startup herdr-agent-state.sh' session 1 0×1 45 45 |
+| 20261013 | doctor | Yes | WARN check-runner.md: frontmatter key "efort" (did you mean "effort"?) |
+| 20261013 | doctor | Yes | npm run -s gate 0.07s user 0.04s system 85% cpu 0.125 total |
