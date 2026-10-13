@@ -35,6 +35,12 @@ try {
   const fd = await page.evaluate(() => Object.fromEntries(new FormData(document.forms.order)));
   check(fd['qty[HLM-001]'] === '2' && fd['qty[HLM-002]'] === '1', 'FormData has both values', JSON.stringify(fd));
 
+  // 2b. Reset restores the value the element had when it was connected.
+  await page.getByRole('button', { name: 'Reset' }).click();
+  const afterReset = await page.evaluate(() => Object.fromEntries(new FormData(document.forms.order)));
+  check(afterReset['qty[HLM-001]'] === '0', 'reset restores qty[HLM-001] to 0', JSON.stringify(afterReset));
+  await mug.locator('input').fill('2'); // check 4 expects the mug at 2
+
   // 3. Out of range: the element is :invalid and the browser blocks the submit.
   await towel.locator('input').fill('5');
   const bad = await towel.evaluate((el) => ({

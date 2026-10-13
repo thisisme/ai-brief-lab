@@ -10,13 +10,24 @@
       label: { type: "String" },
     },
     extend: (ce) =>
-      class extends ce {
+      class extends (ce as unknown as new () => HTMLElement & {
+        connectedCallback(): void;
+      }) {
         // Makes <qty-input name="…"> take part in <form>: FormData, validation, :invalid, <label>.
         static formAssociated = true;
         internals!: ElementInternals;
+        initialValue: number | null = null;
         constructor() {
           super();
           this.internals = this.attachInternals();
+        }
+        connectedCallback() {
+          // Remember the markup's value so form reset can restore it.
+          this.initialValue ??= Number(this.getAttribute("value") ?? 0);
+          super.connectedCallback();
+        }
+        formResetCallback() {
+          (this as unknown as { value: number }).value = this.initialValue ?? 0;
         }
         get form() {
           return this.internals.form;

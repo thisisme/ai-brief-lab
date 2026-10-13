@@ -1,4 +1,5 @@
 | Date | Lab | Worked? | Note |
+| --- | --- | --- | --- |
 | 20261005 | - | Yes | sonnet $0.08513680000000001 12s 1 files changed |
 | 20261005 | - | Yes | opus $0.1526578 13s 1 files changed |
 | 20261007 | per-call efforter | Yes | 2 "perTurnEffort":"high" |
@@ -8,3 +9,4 @@
 | 20261013 | doctor | Yes | SessionStart:startup herdr-agent-state.sh' session 1 0×1 45 45 |
 | 20261013 | doctor | Yes | WARN check-runner.md: frontmatter key "efort" (did you mean "effort"?) |
 | 20261013 | doctor | Yes | npm run -s gate 0.07s user 0.04s system 85% cpu 0.125 total |
+| 20261013 | custom elements | Yes | ok form-associated, label works ({"form":"order","label":true}); ok FormData has both values ({"qty[HLM-001]":"2","qty[HLM-002]":"1","note":""}); ok max=3 blocks the form ({"valid":false,"msg":"At most 3","invalid":true,"formValid":false}); ok invalid form was not posted; ok PHP received the order ({"ok":true,"qty":{"HLM-001":2,"HLM-002":3},"errors":[],"note":"Leverans Halmstad"}); ok PHP rejects qty 9 on its own; exit=0 |

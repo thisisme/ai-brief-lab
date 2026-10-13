@@ -46,6 +46,7 @@ $h = fn(string $s): string => htmlspecialchars($s, ENT_QUOTES);
 	<?php endforeach; ?>
 	<p><label>Note <input name="note"></label></p>
 	<button>Order</button>
+	<button type="reset">Reset</button>
 </form>
 <?php if ($result !== null): ?>
 	<pre id="result"><?= $h(json_encode($result, JSON_UNESCAPED_UNICODE)) ?></pre>
