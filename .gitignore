@@ -25,6 +25,8 @@ vite.config.ts.timestamp-*
 .claude/*.log
 .claude/gate.log
 .claude/.done-gate-*
+.claude/doctor.log
+.claude/.gate-cache
 
 hosts/php/public/build/
 .claude/telemetry/
