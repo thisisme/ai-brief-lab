@@ -29,3 +29,5 @@ vite.config.ts.timestamp-*
 .claude/.gate-cache
 
 hosts/php/public/build/
+.claude/telemetry/
+.claude/.gate-cache

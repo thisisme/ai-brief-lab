@@ -17,6 +17,9 @@
     "agents:effort": "node scripts/models.mjs --lint",
     "gate": "bash scripts/gate.sh",
     "doctor": "node scripts/claude-doctor.mjs",
+    "telemetry:sink": "node scripts/otel-sink.mjs",
+    "telemetry:report": "node scripts/pilot-report.mjs",
+    "telemetry:test": "node scripts/telemetry-test.mjs",
     "guard:test": "node scripts/prompt-guard-test.mjs",
     "form:smoke": "node scripts/form-smoke.mjs http://127.0.0.1:8099/order.php"
   },
