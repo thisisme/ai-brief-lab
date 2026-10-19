@@ -16,7 +16,8 @@
     "models": "node scripts/models.mjs",
     "agents:effort": "node scripts/models.mjs --lint",
     "gate": "bash scripts/gate.sh",
-    "doctor": "node scripts/claude-doctor.mjs"
+    "doctor": "node scripts/claude-doctor.mjs",
+    "guard:test": "node scripts/prompt-guard-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",

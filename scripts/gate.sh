@@ -27,8 +27,8 @@ if [[ -z "${GATE_NO_CACHE:-}" && -f "$cache" && "$(head -n 1 "$cache")" == "$key
   exit "$code"
 fi
 
-out=$(mktemp)
-res=$(mktemp)
+out=$(mktemp "${TMPDIR:-/tmp}/gate.XXXXXX")
+res=$(mktemp "${TMPDIR:-/tmp}/gate.XXXXXX")
 trap 'rm -f "$out" "$res"' EXIT
 finish() { mkdir -p .claude; { echo "$key"; echo "$1"; cat "$res"; } > "$cache"; cat "$res"; exit "$1"; }
 fail() { { echo "gate: FAIL $1"; tail -n 30 "$out"; } > "$res"; finish 1; }
