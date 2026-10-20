@@ -26,5 +26,10 @@ Run, in order, and stop at the first failure:
    docs/pilot-telemetry.md changed: npm run -s telemetry:test (must end with
    "telemetry-test: all passed"). If the sink's KEEP list changed, update the
    "What we collect" table in docs/pilot-telemetry.md in the same commit.
-   Fix mechanical failures (types, imports, lint) and re-run.
-   If something needs a design decision, stop and report file:line instead of committing.
+10. If src/instrumentation.server.ts, anything under src/routes/api/, scripts/trace-sink.mjs,
+    scripts/trace-test.mjs, vite.config.ts, or the @anthropic-ai/sdk or @opentelemetry/\*
+    versions in package.json changed: npm run -s trace:test (must end with
+    "trace-test: all passed"; it uses ports 8098, 4329 and 5199). Never set the SDK's
+    contentMode to "content" without asking first.
+    Fix mechanical failures (types, imports, lint) and re-run.
+    If something needs a design decision, stop and report file:line instead of committing.

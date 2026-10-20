@@ -21,13 +21,18 @@
     "telemetry:report": "node scripts/pilot-report.mjs",
     "telemetry:test": "node scripts/telemetry-test.mjs",
     "guard:test": "node scripts/prompt-guard-test.mjs",
-    "form:smoke": "node scripts/form-smoke.mjs http://127.0.0.1:8099/order.php"
+    "form:smoke": "node scripts/form-smoke.mjs http://127.0.0.1:8099/order.php",
+    "trace:sink": "node scripts/trace-sink.mjs",
+    "trace:tree": "node scripts/trace-sink.mjs --tree",
+    "trace:test": "node scripts/trace-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
-    "@sveltejs/kit": "^3.0.0",
+    "@sveltejs/adapter-node": "^6.0.0",
+    "@sveltejs/kit": "^3.1.0",
     "@sveltejs/mcp": "^0.1.26",
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "@types/node": "^22.20.5",
     "playwright": "^1.63.0",
     "svelte": "^5.57.1",
     "svelte-check": "^4.6.0",
@@ -37,5 +42,12 @@
   "imports": {
     "#lib": "./src/lib/index.js",
     "#lib/*": "./src/lib/*"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@opentelemetry/api": "^1.9.1",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.223.0",
+    "@opentelemetry/resources": "^2.12.0",
+    "@opentelemetry/sdk-trace-node": "^2.12.0"
   }
 }
