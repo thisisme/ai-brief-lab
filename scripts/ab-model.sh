@@ -2,11 +2,12 @@
 # ab-model.sh "<task>" — same task on Sonnet and Opus, each in a throwaway worktree
 set -euo pipefail
 task="$1"
+root="$(pwd)"
 for m in sonnet opus; do
   wt="../ab-$m"
   git worktree add -q --detach "$wt" HEAD
   start=$(date +%s)
-  (cd "$wt" && claude -p "$task" --model "$m" \
+  (cd "$wt" && "$root/scripts/claude-p.sh" "$task" --model "$m" \
       --permission-mode acceptEdits \
       --allowedTools "Bash(npm run *),Bash(npm test *)" \
       --output-format json > "../ab-$m.json")

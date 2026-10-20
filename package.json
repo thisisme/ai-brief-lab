@@ -24,7 +24,8 @@
     "form:smoke": "node scripts/form-smoke.mjs http://127.0.0.1:8099/order.php",
     "trace:sink": "node scripts/trace-sink.mjs",
     "trace:tree": "node scripts/trace-sink.mjs --tree",
-    "trace:test": "node scripts/trace-test.mjs"
+    "trace:test": "node scripts/trace-test.mjs",
+    "headless:probe": "node scripts/headless-probe.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
