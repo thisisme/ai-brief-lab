@@ -15,8 +15,8 @@ if (!file) {
   file = '.claude/doctor.log';
   rmSync(file, { force: true });
   const run = spawnSync(
-    'claude',
-    ['-p', 'Run `git status --short` with Bash, then reply with the single word ok.',
+    'scripts/claude-p.sh',
+    ['Run `git status --short` with Bash, then reply with the single word ok.',
      '--allowedTools', 'Bash(git status:*)', '--debug-file', file],
     { stdio: ['ignore', 'ignore', 'inherit'], timeout: 300_000 }
   );

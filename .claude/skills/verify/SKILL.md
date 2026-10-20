@@ -17,7 +17,7 @@ Run, in order, and stop at the first failure:
 6. If anything under .claude/hooks/ changed: npm run -s guard:test
    (must end with "guard-test: all passed")
 7. If .claude/settings.json changed:
-   claude -p "Reply with exactly: ok" 2>&1 >/dev/null | grep "did not load"
+   scripts/claude-p.sh "Reply with exactly: ok" 2>&1 >/dev/null | grep "did not load"
    must print nothing. A settings file that fails validation is skipped whole,
    hooks included, and claude -p still exits 0.
 8. If anything under .claude/ changed: npm run doctor (must end with
@@ -31,5 +31,9 @@ Run, in order, and stop at the first failure:
     versions in package.json changed: npm run -s trace:test (must end with
     "trace-test: all passed"; it uses ports 8098, 4329 and 5199). Never set the SDK's
     contentMode to "content" without asking first.
+11. If .claude/settings.json or scripts/claude-p.sh changed, or claude --version differs
+    from the version in the newest LABS.md row: npm run -s headless:probe (must end with
+    "headless-probe: ok"; it starts four one-line headless sessions, a few cents in all).
+    New scripts and gates call scripts/claude-p.sh, not bare claude -p.
     Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.
