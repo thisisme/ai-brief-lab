@@ -19,3 +19,4 @@ pilot-report: 1 week(s), 0 shown, minimum 3 people per week |
 | 20261020 | tracing | Yes | POST /api/summary/stream returns text/plain via messages.stream(); trace-test: all passed (19 checks); streamed SDK span 3017 ms >= last SSE event 2711 ms; no prompt text in spans |
 | 20261020 | headless forks | Yes | scripts/claude-p.sh: default {"spawned":0,"by_type":{}}; with CLAUDE_P_FORKS=1 {"spawned":1,"by_type":{"fork":1}} |
 | 20261020 | headless wrapper | Yes | claude --version 2.1.304 (Claude Code); ab-model.sh and claude-doctor.mjs now call scripts/claude-p.sh; doctor: warnings 0, hook failures 0, slow hooks 0 |
+| 20261020 | qty-stepper live region | Yes | stepper-smoke: 10/10 ok incl. both JS-off checks; status span after + clicks reads {"text":"Tylösand towel: 3","live":"polite"} |
