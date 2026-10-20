@@ -10,8 +10,10 @@ Run, in order, and stop at the first failure:
    the commit hook runs the same script, with its cache, and blocks commits while it fails)
 2. npm run build
 3. vendor/bin/phpstan analyse --no-progress (only if vendor/bin/phpstan exists)
-4. If src/lib/elements/ or hosts/php/ changed: start npm run elements:serve in the background,
-   run npm run elements:smoke and npm run form:smoke (every line must start with "ok"),
+4. If src/lib/elements/ or hosts/php/ changed: npm run elements:build, start
+   npm run elements:serve in the background from this repo, run npm run elements:smoke,
+   npm run form:smoke and npm run stepper:smoke (every line must start with "ok"; the
+   stepper's first two checks run with JavaScript off and with the bundle blocked),
    then stop the server.
 5. If anything under .claude/agents/ or .claude/skills/ changed: npm run agents:effort
 6. If anything under .claude/hooks/ changed: npm run -s guard:test
