@@ -26,7 +26,9 @@
     "trace:tree": "node scripts/trace-sink.mjs --tree",
     "trace:test": "node scripts/trace-test.mjs",
     "headless:probe": "node scripts/headless-probe.mjs",
-    "stepper:smoke": "node scripts/stepper-smoke.mjs"
+    "stepper:smoke": "node scripts/stepper-smoke.mjs",
+    "profile:test": "node scripts/profile-test.mjs",
+    "profile": "node --env-file-if-exists=.env.local scripts/user-profile.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
@@ -46,7 +48,7 @@
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.135.0",
+    "@anthropic-ai/sdk": "^0.137.0",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/exporter-trace-otlp-http": "^0.223.0",
     "@opentelemetry/resources": "^2.12.0",
