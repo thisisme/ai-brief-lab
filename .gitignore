@@ -33,3 +33,5 @@ hosts/php/public/build/
 .claude/.gate-cache
 .claude/traces/
 data/user-profiles.json
+.venv-skills/
+dist/

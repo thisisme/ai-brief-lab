@@ -2,6 +2,11 @@
 name: verify
 description: Run the project's checks before a commit. Use right before
   committing, or when asked whether a change is ready.
+license: Proprietary
+compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI and git.
+metadata:
+  owner: mats
+  updated: "2026-10-23"
 ---
 
 Run, in order, and stop at the first failure:
@@ -46,5 +51,10 @@ Run, in order, and stop at the first failure:
     "profile-test: all passed"; it uses ports 8097 and 5198). Every Claude call made for a
     customer passes user_profile_id from profileFor(). Never run npm run profile -- add
     without asking first: each add creates a real profile at Anthropic.
+13. If anything under .claude/skills/ changed: npm run -s skills:lint (its last line must say
+    "0 error(s)"; warnings are Claude Code-only fields). A skill meant for colleagues on
+    other tools, claude.ai or the Skills API must also pass npm run -s skills:lint -- --portable.
+    If scripts/skills-lint.mjs changed: npm run -s skills:test (must end with
+    "skills-lint-test: all passed").
     Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.
