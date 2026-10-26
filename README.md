@@ -29,6 +29,17 @@ Svelte components compiled as web components, so they can be dropped into a non-
 - `pr-baseline.sh FROM TO` reports merged-PR count, median and p75 hours to merge, and reverts for a date range (needs `gh` and `jq`).
 - `LABS.md` is the running log of experiment results.
 
+#### Sharing a skill
+
+To give `php-pin-audit` to a colleague, zip the folder (`dist/` is git-ignored):
+
+```sh
+mkdir -p dist
+cd .claude/skills && zip -r ../../dist/php-pin-audit.zip php-pin-audit
+```
+
+They unzip it into their own skills folder (`~/.claude/skills/` for all their projects, or `.claude/skills/` in one project). Uploading the zip to claude.ai as a skill is untested.
+
 ## Setup
 
 ```sh
