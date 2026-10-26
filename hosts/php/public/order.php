@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	$result['note'] = trim((string) ($_POST['note'] ?? ''));
 }
-$h = fn(string $s): string => htmlspecialchars($s, ENT_QUOTES);
+require __DIR__ . '/../lib/html.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -38,9 +38,9 @@ $h = fn(string $s): string => htmlspecialchars($s, ENT_QUOTES);
 <form method="post" id="order">
 	<?php foreach ($products as $p): $id = 'q-' . $p['sku']; ?>
 		<p>
-			<label for="<?= $h($id) ?>"><?= $h($p['name']) ?></label>
-			<qty-input id="<?= $h($id) ?>" name="qty[<?= $h($p['sku']) ?>]" value="0"
-				min="0" max="<?= $p['stock'] ?>" label="<?= $h($p['name']) ?>"></qty-input>
+			<label for="<?= e($id) ?>"><?= e($p['name']) ?></label>
+			<qty-input id="<?= e($id) ?>" name="qty[<?= e($p['sku']) ?>]" value="0"
+				min="0" max="<?= $p['stock'] ?>" label="<?= e($p['name']) ?>"></qty-input>
 			<stock-badge qty="<?= $p['stock'] ?>"></stock-badge>
 		</p>
 	<?php endforeach; ?>
@@ -49,7 +49,7 @@ $h = fn(string $s): string => htmlspecialchars($s, ENT_QUOTES);
 	<button type="reset">Reset</button>
 </form>
 <?php if ($result !== null): ?>
-	<pre id="result"><?= $h(json_encode($result, JSON_UNESCAPED_UNICODE)) ?></pre>
+	<pre id="result"><?= e(json_encode($result, JSON_UNESCAPED_UNICODE)) ?></pre>
 <?php endif; ?>
 
 </html>

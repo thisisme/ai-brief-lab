@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI and git.
 metadata:
   owner: mats
-  updated: "2026-10-23"
+  updated: "2026-10-26"
 ---
 
 Run, in order, and stop at the first failure:
@@ -56,5 +56,11 @@ Run, in order, and stop at the first failure:
     other tools, claude.ai or the Skills API must also pass npm run -s skills:lint -- --portable.
     If scripts/skills-lint.mjs changed: npm run -s skills:test (must end with
     "skills-lint-test: all passed").
+14. If anything under plugins/lab-watch/ or scripts/php-watch-test.mjs changed:
+    claude plugin validate plugins/lab-watch (must end with "Validation passed"; the icon
+    and README notes are directory checks, not failures) and npm run -s watch:test (must end
+    with "watch-test: all passed"; it uses port 8094). Never enable lab-watch in
+    .claude/settings.json or move it under .claude/skills/: monitors don't start from
+    project-scope plugins. It loads with claude --plugin-dir ./plugins/lab-watch.
     Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.

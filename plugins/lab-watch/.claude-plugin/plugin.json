@@ -1,0 +1,7 @@
+{
+  "name": "lab-watch",
+  "version": "0.1.0",
+  "description": "Tells Claude when a PHP page in hosts/php breaks or recovers, while it works",
+  "author": { "name": "Mats Olsberg" },
+  "license": "UNLICENSED"
+}
