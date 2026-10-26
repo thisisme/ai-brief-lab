@@ -32,3 +32,4 @@ hosts/php/public/build/
 .claude/telemetry/
 .claude/.gate-cache
 .claude/traces/
+data/user-profiles.json
