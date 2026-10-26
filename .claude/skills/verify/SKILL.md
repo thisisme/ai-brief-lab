@@ -24,10 +24,13 @@ Run, in order, and stop at the first failure:
    hooks included, and claude -p still exits 0.
 8. If anything under .claude/ changed: npm run doctor (must end with
    "warnings 0, hook failures 0, slow hooks 0"; it starts one short headless session)
-9. If scripts/otel-sink.mjs, scripts/pilot-report.mjs, scripts/claude-telemetry.sh or
-   docs/pilot-telemetry.md changed: npm run -s telemetry:test (must end with
-   "telemetry-test: all passed"). If the sink's KEEP list changed, update the
-   "What we collect" table in docs/pilot-telemetry.md in the same commit.
+9. If scripts/otel-sink.mjs, scripts/pilot-report.mjs, scripts/guardrail-report.mjs,
+   scripts/claude-telemetry.sh, docs/pilot-telemetry.md or docs/ai-literacy-measures.md
+   changed: npm run -s telemetry:test and npm run -s guardrail:test (must end with
+   "telemetry-test: all passed" and "guardrail-test: all passed"). If the sink's KEEP or
+   KEEP_SAFETY list changed, update the "What we collect" table in docs/pilot-telemetry.md
+   in the same commit. scripts/claude-telemetry.sh never sets OTEL_LOG_TOOL_DETAILS,
+   OTEL_LOG_USER_PROMPTS or OTEL_LOG_ASSISTANT_RESPONSES.
 10. If src/instrumentation.server.ts, anything under src/routes/api/, scripts/trace-sink.mjs,
     scripts/trace-test.mjs, vite.config.ts, or the @anthropic-ai/sdk or @opentelemetry/\*
     versions in package.json changed: npm run -s trace:test (must end with

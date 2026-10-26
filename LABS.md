@@ -9,11 +9,8 @@
 | 20261013 | doctor               | Yes     | SessionStart:startup herdr-agent-state.sh' session 1 0×1 45 45          |
 | 20261013 | doctor               | Yes     | WARN check-runner.md: frontmatter key "efort" (did you mean "effort"?)  |
 | 20261013 | doctor               | Yes     | npm run -s gate 0.07s user 0.04s system 85% cpu 0.125 total             |
-| 20261015 | telemetry            | Yes     | week people sessions cost USD lines +/- commits PRs edits kept active h |
-
-2026-W43 <3 suppressed: fewer than 3 people
-pilot-report: 1 week(s), 0 shown, minimum 3 people per week |
 | 20261013 | custom elements | Yes | ok form-associated, label works ({"form":"order","label":true}); ok FormData has both values ({"qty[HLM-001]":"2","qty[HLM-002]":"1","note":""}); ok max=3 blocks the form ({"valid":false,"msg":"At most 3","invalid":true,"formValid":false}); ok invalid form was not posted; ok PHP received the order ({"ok":true,"qty":{"HLM-001":2,"HLM-002":3},"errors":[],"note":"Leverans Halmstad"}); ok PHP rejects qty 9 on its own; exit=0 |
+| 20261015 | telemetry            | Yes     | week people sessions cost USD lines +/- commits PRs edits kept active h ; 2026-W43 <3 suppressed: fewer than 3 people ; pilot-report: 1 week(s), 0 shown, minimum 3 people per week |
 | 20261020 | endpoint | Yes | The endpoint needs SvelteKit 3.1.0 or later |
 | 20261020 | tracing | Yes | POST /api/summary returned a summary (56 in / 32 out tokens, claude-haiku-5-5); trace:tree shows one trace, sveltekit.handle.root 1430 ms > sveltekit.resolve > sveltekit.endpoint > anthropic.messages.create 1426 ms |
 | 20261020 | tracing | Yes | POST /api/summary/stream returns text/plain via messages.stream(); trace-test: all passed (19 checks); streamed SDK span 3017 ms >= last SSE event 2711 ms; no prompt text in spans |
@@ -22,3 +19,5 @@ pilot-report: 1 week(s), 0 shown, minimum 3 people per week |
 | 20261020 | qty-stepper live region | Yes | stepper-smoke: 10/10 ok incl. both JS-off checks; status span after + clicks reads {"text":"Tylösand towel: 3","live":"polite"} |
 | 20261020 | elements smoke | Yes | <lab-counter> had been unregistered since 7c48ce1 (Oct 13) because src/elements.js dropped its import; re-imported in 1bcfad2: elements:smoke ok <stock-badge> ×3, ok <lab-counter> ×1; form:smoke 7/7 ok; stepper:smoke 10/10 ok |
 | 20261023 | tenant from session | Yes | /api/summary takes the tenant from locals.tenant, set in hooks.server.ts from an HMAC-signed lab_session cookie (LAB_SESSION_SECRET); body tenant ignored; profile-test: all passed (19 checks incl. signed cookie attributed, forged cookie 401, body tenant not attributed); check 0 errors, gate ok, build ok |
+| 20261026 | guardrail sink | Yes | guardrail-test: 8/8 ok; sink answers on its port; only safety events stored (4 stored); no prompt text or personnummer on disk; no email, account id, session id, prompt id or org id on disk; command details dropped even when sent; category, reason and team kept; people counted, not named (people 3); nothing written to the metrics files |
+| 20261026 | guardrail review line | Yes | guardrail-report prints "<week> review: <reason> stopped <n> calls - fix the rule or explain it, then add a row to docs/ai-literacy-measures.md" for any reason with 5+ stops in a shown week; guardrail-test: all passed (13 checks incl. 5 stops in W44 flagged, 4 stops and W43 not flagged); KEEP and KEEP_SAFETY unchanged, nothing new on disk |
