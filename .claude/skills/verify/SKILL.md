@@ -37,5 +37,11 @@ Run, in order, and stop at the first failure:
     from the version in the newest LABS.md row: npm run -s headless:probe (must end with
     "headless-probe: ok"; it starts four one-line headless sessions, a few cents in all).
     New scripts and gates call scripts/claude-p.sh, not bare claude -p.
+12. If src/lib/server/user-profiles.ts, scripts/user-profile.mjs, scripts/profile-test.mjs,
+    data/user-profiles.json, anything under src/routes/api/, or the @anthropic-ai/sdk
+    version in package.json changed: npm run -s profile:test (must end with
+    "profile-test: all passed"; it uses ports 8097 and 5198). Every Claude call made for a
+    customer passes user_profile_id from profileFor(). Never run npm run profile -- add
+    without asking first: each add creates a real profile at Anthropic.
     Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.
