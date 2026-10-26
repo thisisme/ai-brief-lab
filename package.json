@@ -28,7 +28,9 @@
     "headless:probe": "node scripts/headless-probe.mjs",
     "stepper:smoke": "node scripts/stepper-smoke.mjs",
     "profile:test": "node scripts/profile-test.mjs",
-    "profile": "node --env-file-if-exists=.env.local scripts/user-profile.mjs"
+    "profile": "node --env-file-if-exists=.env.local scripts/user-profile.mjs",
+    "guardrail:report": "node scripts/guardrail-report.mjs",
+    "guardrail:test": "node scripts/guardrail-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
