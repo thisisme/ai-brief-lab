@@ -1,0 +1,7 @@
+[
+  {
+    "name": "php-watch",
+    "command": "node \"${CLAUDE_PLUGIN_ROOT}\"/scripts/php-watch.mjs \"${CLAUDE_PROJECT_DIR}\"/hosts/php 8095",
+    "description": "PHP syntax errors and page warnings in hosts/php"
+  }
+]
