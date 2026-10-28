@@ -1,0 +1,7 @@
+- paragraph: Halmstad mug
+- paragraph: Tylösand towel
+- paragraph:
+  - text: Note
+  - textbox "Note"
+- button "Order"
+- button "Reset"

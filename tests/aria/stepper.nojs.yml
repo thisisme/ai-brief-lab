@@ -1,0 +1,8 @@
+- paragraph:
+  - text: Halmstad mug
+  - spinbutton "Halmstad mug": "0"
+- paragraph:
+  - text: Tylösand towel
+  - spinbutton "Tylösand towel": "0"
+- button "Reset"
+- button "Order"

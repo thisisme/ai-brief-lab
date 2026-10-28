@@ -1,0 +1,4 @@
+- text: "A-100: 12 left B-200: out of stock"
+- button "Restock"
+- text: "C-300: 7 left"
+- 'button "Count: 3 (×2)"'

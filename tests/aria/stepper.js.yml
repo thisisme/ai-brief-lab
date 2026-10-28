@@ -1,0 +1,14 @@
+- paragraph:
+  - text: Halmstad mug
+  - 'button "Fewer: Halmstad mug" [disabled]': −
+  - spinbutton "Halmstad mug": "0"
+  - 'button "More: Halmstad mug"': +
+  - status
+- paragraph:
+  - text: Tylösand towel
+  - 'button "Fewer: Tylösand towel" [disabled]': −
+  - spinbutton "Tylösand towel": "0"
+  - 'button "More: Tylösand towel"': +
+  - status
+- button "Reset"
+- button "Order"
