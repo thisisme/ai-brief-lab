@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI and git.
 metadata:
   owner: mats
-  updated: "2026-10-26"
+  updated: "2026-10-27"
 ---
 
 Run, in order, and stop at the first failure:
@@ -62,5 +62,11 @@ Run, in order, and stop at the first failure:
     with "watch-test: all passed"; it uses port 8094). Never enable lab-watch in
     .claude/settings.json or move it under .claude/skills/: monitors don't start from
     project-scope plugins. It loads with claude --plugin-dir ./plugins/lab-watch.
+15. If src/lib/elements/, hosts/php/public/, tests/aria/ or scripts/aria-snap\*.mjs changed:
+    npm run elements:build, then npm run -s aria:snap (must end with "aria-snap: all passed";
+    it serves the pages itself on port 8093). If the only failures are "changed since the
+    baseline", show the - and + lines and ask before running npm run -s aria:snap -- --update;
+    commit tests/aria/ with the change. If scripts/aria-snap.mjs or scripts/aria-snap-test.mjs
+    changed: npm run -s aria:test (must end with "aria-snap-test: all passed").
     Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.

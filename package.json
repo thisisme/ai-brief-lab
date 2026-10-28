@@ -33,7 +33,9 @@
     "guardrail:test": "node scripts/guardrail-test.mjs",
     "skills:lint": "node scripts/skills-lint.mjs",
     "skills:test": "node scripts/skills-lint-test.mjs",
-    "watch:test": "node scripts/php-watch-test.mjs"
+    "watch:test": "node scripts/php-watch-test.mjs",
+    "aria:snap": "node scripts/aria-snap.mjs",
+    "aria:test": "node scripts/aria-snap-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",

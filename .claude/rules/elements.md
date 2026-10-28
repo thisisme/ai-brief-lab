@@ -34,9 +34,20 @@ paths:
 - In one $effect: `setFormValue(String(value))`, then `setValidity({ flag: true }, message, innerInput)`
   or `setValidity({})`. Use the standard flags (rangeOverflow, valueMissing, badInput…).
 - Inner buttons are `type="button"`, or they submit the form.
+- A <label for> on the host does not name an input inside its shadow root. Copy
+  `this.internals.labels[0]?.textContent.trim()` onto the inner input as aria-label.
+
+# Accessible names
+
+- Every button, input and link the element renders has a name with a letter or digit in it:
+  "More: Halmstad mug", never just "+" or an icon.
+- Answer "what will a screen reader say?" from npm run -s aria:snap -- --print <page>.php,
+  not from the component source.
 
 # Always
 
 - The PHP page validates every posted value again; element validation is only for the user.
 - After a change: npm run elements:build, then npm run elements:smoke, npm run form:smoke and
-  npm run stepper:smoke with npm run elements:serve running.
+  npm run stepper:smoke with npm run elements:serve running, then npm run -s aria:snap.
+  If its only failures are "changed since the baseline" and the new lines are what you meant,
+  rerun it with -- --update and commit tests/aria/ with the change.

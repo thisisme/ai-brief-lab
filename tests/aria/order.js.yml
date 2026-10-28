@@ -1,0 +1,18 @@
+- paragraph:
+  - text: Halmstad mug
+  - button "Fewer": −
+  - spinbutton "Halmstad mug": "0"
+  - button "More": +
+  - text: ": 12 left"
+- paragraph:
+  - text: Tylösand towel
+  - button "Fewer": −
+  - spinbutton "Tylösand towel": "0"
+  - button "More": +
+  - text: ": 3 left"
+  - button "Restock"
+- paragraph:
+  - text: Note
+  - textbox "Note"
+- button "Order"
+- button "Reset"
