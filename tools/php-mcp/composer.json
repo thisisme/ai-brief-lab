@@ -1,0 +1,21 @@
+{
+  "name": "ai-brief-lab/php-mcp",
+  "description": "MCP server that lets Claude ask the lab's PHP host what it runs",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.2",
+    "mcp/sdk": "~0.9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lab\\PhpMcp\\": "src/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": false
+    },
+    "sort-packages": true
+  }
+}

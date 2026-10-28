@@ -3,10 +3,10 @@ name: verify
 description: Run the project's checks before a commit. Use right before
   committing, or when asked whether a change is ready.
 license: Proprietary
-compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI and git.
+compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-10-27"
+  updated: "2026-10-28"
 ---
 
 Run, in order, and stop at the first failure:
@@ -68,5 +68,11 @@ Run, in order, and stop at the first failure:
     baseline", show the - and + lines and ask before running npm run -s aria:snap -- --update;
     commit tests/aria/ with the change. If scripts/aria-snap.mjs or scripts/aria-snap-test.mjs
     changed: npm run -s aria:test (must end with "aria-snap-test: all passed").
+16. If anything under tools/php-mcp/ or hosts/php/ changed, or .mcp.json changed: run
+    npm run mcp:php:install first if tools/php-mcp/vendor/ is missing, then
+    npm run -s mcp:php:test (must end with "php-mcp-smoke: all passed"). Every php-lab tool
+    stays read-only: no file writes, network calls or page execution. Nothing in
+    tools/php-mcp/server.php or tools/php-mcp/src/ writes to stdout, which carries JSON-RPC.
+    Keep mcp/sdk on ~0.9.0 until the smoke test passes on a newer version.
     Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.
