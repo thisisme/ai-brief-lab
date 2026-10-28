@@ -14,7 +14,7 @@
     "elements:serve": "php -S 127.0.0.1:8099 -t hosts/php/public",
     "elements:smoke": "node scripts/elements-smoke.mjs http://127.0.0.1:8099/ stock-badge lab-counter",
     "models": "node scripts/models.mjs",
-    "agents:effort": "node scripts/models.mjs --lint",
+    "agents:effort": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/models.mjs --lint",
     "gate": "bash scripts/gate.sh",
     "doctor": "node scripts/claude-doctor.mjs",
     "telemetry:sink": "node scripts/otel-sink.mjs",
