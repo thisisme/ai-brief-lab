@@ -35,7 +35,9 @@
     "skills:test": "node scripts/skills-lint-test.mjs",
     "watch:test": "node scripts/php-watch-test.mjs",
     "aria:snap": "node scripts/aria-snap.mjs",
-    "aria:test": "node scripts/aria-snap-test.mjs"
+    "aria:test": "node scripts/aria-snap-test.mjs",
+    "mcp:php:install": "composer install -d tools/php-mcp",
+    "mcp:php:test": "php tools/php-mcp/smoke.php"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
