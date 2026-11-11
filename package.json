@@ -49,7 +49,10 @@
     "sampling:audit": "node scripts/sampling-audit.mjs",
     "sampling:test": "node scripts/sampling-audit-test.mjs",
     "egress:audit": "node scripts/egress-audit.mjs",
-    "egress:test": "node scripts/egress-audit-test.mjs"
+    "egress:test": "node scripts/egress-audit-test.mjs",
+    "errors:mock": "node scripts/error-mock.mjs",
+    "errors:test": "node scripts/error-test.mjs",
+    "chat:smoke": "node scripts/chat-smoke.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",

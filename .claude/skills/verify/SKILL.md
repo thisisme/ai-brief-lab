@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-11-05"
+  updated: "2026-11-06"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -115,5 +115,14 @@ Run, in order, and stop at the first failure:
    same commit. Never add a marketplace or plugin without a ref or sha unless its row
    says review. If scripts/egress-audit.mjs or scripts/egress-audit-test.mjs changed:
    npm run -s egress:test (must end with "egress-audit-test: all passed").
+23. If src/lib/server/claude-errors.ts, src/lib/server/claude-threads.ts, src/routes/api/chat/,
+   src/routes/chat/, scripts/error-mock.mjs, scripts/error-test.mjs, scripts/chat-smoke.mjs
+   or the @anthropic-ai/sdk version in package.json changed: npm run -s errors:test (must
+   end with "error-test: all passed"; it uses port 8089 and needs no API key). If
+   src/routes/chat/ or src/routes/api/chat/ changed: npm run -s chat:smoke too (must end
+   with "chat-smoke: all passed"; it starts vite dev on port 5197). Every Anthropic client
+   created for a request handler sets maxRetries and fetch: capRetryAfter(...), so no
+   request waits more than a few seconds inside the SDK. Never send the API's own error
+   text to the browser: return toHttpFailure()'s message and log its log line.
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.
