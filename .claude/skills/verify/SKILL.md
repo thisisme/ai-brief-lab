@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-11-04"
+  updated: "2026-11-05"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -106,5 +106,14 @@ Run, in order, and stop at the first failure:
    model in the commit message. A new NOMARK model id needs a question first: it has no
    text watermark. If scripts/sampling-audit.mjs or scripts/sampling-audit-test.mjs
    changed: npm run -s sampling:test (must end with "sampling-audit-test: all passed").
+22. If anything under .claude/ or plugins/ changed, or .mcp.json, AGENTS.md, CLAUDE.md or
+   docs/agent-egress.md changed: npm run -s egress:audit -- --strict (must end with
+   "0 block, 0 new" and exit 0). A NEW line needs a row in docs/agent-egress.md in the
+   same commit: say what would leave the machine and to which host, then ask which
+   decision (allow, review or block). Never write an allow row without asking. A BLOCK
+   line means remove the thing or add its permissions.deny rule. Delete STALE rows in the
+   same commit. Never add a marketplace or plugin without a ref or sha unless its row
+   says review. If scripts/egress-audit.mjs or scripts/egress-audit-test.mjs changed:
+   npm run -s egress:test (must end with "egress-audit-test: all passed").
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.
