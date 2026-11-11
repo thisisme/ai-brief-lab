@@ -54,7 +54,8 @@
     "errors:test": "node scripts/error-test.mjs",
     "chat:smoke": "node scripts/chat-smoke.mjs",
     "cc:channel": "node scripts/cc-channel.mjs",
-    "cc:channel:test": "node scripts/cc-channel-test.mjs"
+    "cc:channel:test": "node scripts/cc-channel-test.mjs",
+    "model:shape:test": "node scripts/model-shape-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
@@ -75,7 +76,7 @@
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^1.8.0",
+    "@anthropic-ai/sdk": "^1.7.0",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/exporter-trace-otlp-http": "^0.223.0",
     "@opentelemetry/resources": "^2.12.0",

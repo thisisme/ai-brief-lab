@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-11-09"
+  updated: "2026-11-10"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -132,5 +132,14 @@ Run, in order, and stop at the first failure:
    Never lower minimumVersion or remove it without asking. Raise it in its own commit and
    say why in the message. If scripts/cc-channel.mjs or scripts/cc-channel-test.mjs
    changed: npm run -s cc:channel:test (must end with "cc-channel-test: all passed").
+25. If src/lib/server/model-shape.ts, src/lib/server/claude-threads.ts, src/routes/api/chat/,
+   scripts/model-shape-test.mjs or the @anthropic-ai/sdk version in package.json changed, or
+   a claude-fable- or claude-mythos- model id was added anywhere: npm run -s model:shape:test
+   (must end with "model-shape-test: all passed"; it uses port 8088 and needs no API key).
+   Every Messages API request built under src/ goes through shapeRequest() with an explicit
+   defaultEffort. Never make claude-fable-5-2 or claude-mythos-5-2 a default, in code or in
+   CLAUDE_CHAT_MODEL, without asking first: they need 30-day retention and aren't available
+   under ZDR. Never edit, trim or redact earlier messages of a thread before resending them;
+   redact before the first send, or Fable 5.2 answers 400 on the thinking blocks.
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.
