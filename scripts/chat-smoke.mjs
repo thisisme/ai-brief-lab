@@ -2,7 +2,7 @@
 // Opens /chat in Chromium against scripts/error-mock.mjs and checks what a person sees
 // when Claude is busy or the key is wrong. Uses ports 8089 and 5197, no API key.
 import { spawn } from 'node:child_process';
-import { chromium } from 'playwright';
+import { chromium } from './pw.mjs';
 import { startErrorMock } from './error-mock.mjs';
 
 const MOCK = 'http://127.0.0.1:8089';

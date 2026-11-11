@@ -3,7 +3,7 @@
 //   npm run form:smoke            (needs `npm run elements:serve` running)
 //   node scripts/form-smoke.mjs http://127.0.0.1:8099/order.php
 // Exit 0 when every check prints "ok", 1 on the first "FAIL".
-import { chromium } from 'playwright';
+import { chromium } from './pw.mjs';
 
 const url = process.argv[2] ?? 'http://127.0.0.1:8099/order.php';
 const browser = await chromium.launch(

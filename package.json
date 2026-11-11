@@ -55,7 +55,8 @@
     "chat:smoke": "node scripts/chat-smoke.mjs",
     "cc:channel": "node scripts/cc-channel.mjs",
     "cc:channel:test": "node scripts/cc-channel-test.mjs",
-    "model:shape:test": "node scripts/model-shape-test.mjs"
+    "model:shape:test": "node scripts/model-shape-test.mjs",
+    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium-headless-shell"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
