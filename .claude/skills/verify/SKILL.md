@@ -6,15 +6,13 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-10-29"
+  updated: "2026-10-30"
 ---
-
 Run, in order, and stop at the first failure:
-
-1. GATE_NO_CACHE=1 npm run gate (must print "gate: ok" or "gate: no code changes";
+1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
    the commit hook runs the same script, with its cache, and blocks commits while it fails)
 2. npm run build
-3. vendor/bin/phpstan analyse --no-progress (only if vendor/bin/phpstan exists)
+3. vendor/bin/phpstan analyse --no-progress   (only if vendor/bin/phpstan exists)
 4. If src/lib/elements/ or hosts/php/ changed: npm run elements:build, start
    npm run elements:serve in the background from this repo, run npm run elements:smoke,
    npm run form:smoke and npm run stepper:smoke (every line must start with "ok"; the
@@ -37,48 +35,54 @@ Run, in order, and stop at the first failure:
    in the same commit. scripts/claude-telemetry.sh never sets OTEL_LOG_TOOL_DETAILS,
    OTEL_LOG_USER_PROMPTS or OTEL_LOG_ASSISTANT_RESPONSES.
 10. If src/instrumentation.server.ts, anything under src/routes/api/, scripts/trace-sink.mjs,
-    scripts/trace-test.mjs, vite.config.ts, or the @anthropic-ai/sdk or @opentelemetry/\*
-    versions in package.json changed: npm run -s trace:test (must end with
-    "trace-test: all passed"; it uses ports 8098, 4329 and 5199). Never set the SDK's
-    contentMode to "content" without asking first.
+   scripts/trace-test.mjs, vite.config.ts, or the @anthropic-ai/sdk or @opentelemetry/*
+   versions in package.json changed: npm run -s trace:test (must end with
+   "trace-test: all passed"; it uses ports 8098, 4329 and 5199). Never set the SDK's
+   contentMode to "content" without asking first.
 11. If .claude/settings.json or scripts/claude-p.sh changed, or claude --version differs
-    from the version in the newest LABS.md row: npm run -s headless:probe (must end with
-    "headless-probe: ok"; it starts four one-line headless sessions, a few cents in all).
-    New scripts and gates call scripts/claude-p.sh, not bare claude -p.
+   from the version in the newest LABS.md row: npm run -s headless:probe (must end with
+   "headless-probe: ok"; it starts four one-line headless sessions, a few cents in all).
+   New scripts and gates call scripts/claude-p.sh, not bare claude -p.
 12. If src/lib/server/user-profiles.ts, scripts/user-profile.mjs, scripts/profile-test.mjs,
-    data/user-profiles.json, anything under src/routes/api/, or the @anthropic-ai/sdk
-    version in package.json changed: npm run -s profile:test (must end with
-    "profile-test: all passed"; it uses ports 8097 and 5198). Every Claude call made for a
-    customer passes user_profile_id from profileFor(). Never run npm run profile -- add
-    without asking first: each add creates a real profile at Anthropic.
+   data/user-profiles.json, anything under src/routes/api/, or the @anthropic-ai/sdk
+   version in package.json changed: npm run -s profile:test (must end with
+   "profile-test: all passed"; it uses ports 8097 and 5198). Every Claude call made for a
+   customer passes user_profile_id from profileFor(). Never run npm run profile -- add
+   without asking first: each add creates a real profile at Anthropic.
 13. If anything under .claude/skills/ changed: npm run -s skills:lint (its last line must say
-    "0 error(s)"; warnings are Claude Code-only fields). A skill meant for colleagues on
-    other tools, claude.ai or the Skills API must also pass npm run -s skills:lint -- --portable.
-    If scripts/skills-lint.mjs changed: npm run -s skills:test (must end with
-    "skills-lint-test: all passed").
+   "0 error(s)"; warnings are Claude Code-only fields). A skill meant for colleagues on
+   other tools, claude.ai or the Skills API must also pass npm run -s skills:lint -- --portable.
+   If scripts/skills-lint.mjs changed: npm run -s skills:test (must end with
+   "skills-lint-test: all passed").
 14. If anything under plugins/lab-watch/ or scripts/php-watch-test.mjs changed:
-    claude plugin validate plugins/lab-watch (must end with "Validation passed"; the icon
-    and README notes are directory checks, not failures) and npm run -s watch:test (must end
-    with "watch-test: all passed"; it uses port 8094). Never enable lab-watch in
-    .claude/settings.json or move it under .claude/skills/: monitors don't start from
-    project-scope plugins. It loads with claude --plugin-dir ./plugins/lab-watch.
-15. If src/lib/elements/, hosts/php/public/, tests/aria/ or scripts/aria-snap\*.mjs changed:
-    npm run elements:build, then npm run -s aria:snap (must end with "aria-snap: all passed";
-    it serves the pages itself on port 8093). If the only failures are "changed since the
-    baseline", show the - and + lines and ask before running npm run -s aria:snap -- --update;
-    commit tests/aria/ with the change. If scripts/aria-snap.mjs or scripts/aria-snap-test.mjs
-    changed: npm run -s aria:test (must end with "aria-snap-test: all passed").
+   claude plugin validate plugins/lab-watch (must end with "Validation passed"; the icon
+   and README notes are directory checks, not failures) and npm run -s watch:test (must end
+   with "watch-test: all passed"; it uses port 8094). Never enable lab-watch in
+   .claude/settings.json or move it under .claude/skills/: monitors don't start from
+   project-scope plugins. It loads with claude --plugin-dir ./plugins/lab-watch.
+15. If src/lib/elements/, hosts/php/public/, tests/aria/ or scripts/aria-snap*.mjs changed:
+   npm run elements:build, then npm run -s aria:snap (must end with "aria-snap: all passed";
+   it serves the pages itself on port 8093). If the only failures are "changed since the
+   baseline", show the - and + lines and ask before running npm run -s aria:snap -- --update;
+   commit tests/aria/ with the change. If scripts/aria-snap.mjs or scripts/aria-snap-test.mjs
+   changed: npm run -s aria:test (must end with "aria-snap-test: all passed").
 16. If anything under tools/php-mcp/ or hosts/php/ changed, or .mcp.json changed: run
-    npm run mcp:php:install first if tools/php-mcp/vendor/ is missing, then
-    npm run -s mcp:php:test (must end with "php-mcp-smoke: all passed"). Every php-lab tool
-    stays read-only: no file writes, network calls or page execution. Nothing in
-    tools/php-mcp/server.php or tools/php-mcp/src/ writes to stdout, which carries JSON-RPC.
-    Keep mcp/sdk on ~0.9.0 until the smoke test passes on a newer version.
-    17. If scripts/git-ai-report.mjs or scripts/git-ai-report-test.mjs changed:
+   npm run mcp:php:install first if tools/php-mcp/vendor/ is missing, then
+   npm run -s mcp:php:test (must end with "php-mcp-smoke: all passed"). Every php-lab tool
+   stays read-only: no file writes, network calls or page execution. Nothing in
+   tools/php-mcp/server.php or tools/php-mcp/src/ writes to stdout, which carries JSON-RPC.
+   Keep mcp/sdk on ~0.9.0 until the smoke test passes on a newer version.
+17. If scripts/git-ai-report.mjs or scripts/git-ai-report-test.mjs changed:
    npm run -s git-ai:test (must end with "git-ai-report-test: all passed"; it builds a
    throwaway repo in the OS temp folder). If .claude/settings.json changed:
    npm run -s git-ai:report -- --weeks 1 must end with "0 warning(s)". Never hide or
    rewrite Claude's commit trailer (attribution, includeCoAuthoredBy) in this repo: the
    pilot report counts it. The report never prints author names or emails.
+18. If the @sveltejs/kit version in package-lock.json or scripts/kit-probe.mjs changed:
+   npm run -s kit:probe -- --expect-clean (must end with "0 leaking"; it builds a
+   throwaway app in the OS temp folder and uses port 8091). Before bumping svelte,
+   @sveltejs/kit, vite or astro, run npm run -s pkg:diff -- <package> and summarise its
+   watch lines in the commit message; ask before taking a version whose diff has a
+   watch line nobody has read.
 Fix mechanical failures (types, imports, lint) and re-run.
-    If something needs a design decision, stop and report file:line instead of committing.
+If something needs a design decision, stop and report file:line instead of committing.

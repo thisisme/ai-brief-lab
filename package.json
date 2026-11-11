@@ -39,12 +39,14 @@
     "mcp:php:install": "composer install -d tools/php-mcp",
     "mcp:php:test": "php tools/php-mcp/smoke.php",
     "git-ai:report": "node scripts/git-ai-report.mjs",
-    "git-ai:test": "node scripts/git-ai-report-test.mjs"
+    "git-ai:test": "node scripts/git-ai-report-test.mjs",
+    "pkg:diff": "node scripts/pkg-diff.mjs",
+    "kit:probe": "node scripts/kit-probe.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
     "@sveltejs/adapter-node": "^6.0.0",
-    "@sveltejs/kit": "^3.1.0",
+    "@sveltejs/kit": "^3.2.0",
     "@sveltejs/mcp": "^0.1.26",
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
     "@types/node": "^22.20.5",
