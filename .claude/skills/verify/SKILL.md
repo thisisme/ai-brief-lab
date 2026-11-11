@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-11-03"
+  updated: "2026-11-04"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -98,5 +98,13 @@ Run, in order, and stop at the first failure:
    and tools go only on the create; model and cache_control never change mid-thread.
    Threads are not ZDR or HIPAA eligible: never route a conversation that needs either
    through /api/chat.
+21. If anything under src/lib/server/, src/routes/api/, hosts/php/ or tools/ changed, or a
+   line with a claude- model id changed anywhere: npm run -s sampling:audit. A WARN line
+   (temperature, top_p or top_k next to claude-sonnet-4-6) on text that end users see:
+   remove the parameter or ask before committing; on internal steps, keep it with a code
+   comment that says why. Trace every CHECK line to the model it resolves to and say which
+   model in the commit message. A new NOMARK model id needs a question first: it has no
+   text watermark. If scripts/sampling-audit.mjs or scripts/sampling-audit-test.mjs
+   changed: npm run -s sampling:test (must end with "sampling-audit-test: all passed").
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.

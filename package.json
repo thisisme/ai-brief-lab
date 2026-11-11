@@ -45,7 +45,9 @@
     "php-lab:test": "node scripts/php-lab-cli-test.mjs",
     "tool:cost": "node scripts/tool-cost.mjs",
     "thread:test": "node scripts/thread-test.mjs",
-    "thread:mock": "node scripts/thread-mock.mjs"
+    "thread:mock": "node scripts/thread-mock.mjs",
+    "sampling:audit": "node scripts/sampling-audit.mjs",
+    "sampling:test": "node scripts/sampling-audit-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
