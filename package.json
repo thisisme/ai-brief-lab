@@ -43,7 +43,9 @@
     "pkg:diff": "node scripts/pkg-diff.mjs",
     "kit:probe": "node scripts/kit-probe.mjs",
     "php-lab:test": "node scripts/php-lab-cli-test.mjs",
-    "tool:cost": "node scripts/tool-cost.mjs"
+    "tool:cost": "node scripts/tool-cost.mjs",
+    "thread:test": "node scripts/thread-test.mjs",
+    "thread:mock": "node scripts/thread-mock.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
@@ -64,7 +66,7 @@
     "#lib/*": "./src/lib/*"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.137.0",
+    "@anthropic-ai/sdk": "^1.8.0",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/exporter-trace-otlp-http": "^0.223.0",
     "@opentelemetry/resources": "^2.12.0",
