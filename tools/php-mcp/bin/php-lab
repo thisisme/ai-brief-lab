@@ -1,0 +1,80 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+// The php-lab MCP tools as a plain CLI: same LabTools class, no MCP server, no
+// Composer packages needed. Prints JSON on stdout, errors on stderr.
+//   exit 0 = ok, 1 = a linted file has errors, 2 = refused or bad usage.
+
+namespace {
+    $autoload = dirname(__DIR__).'/vendor/autoload.php';
+    if (is_file($autoload)) {
+        require $autoload;
+    }
+}
+
+namespace Mcp\Exception {
+    // Without vendor/, give LabTools the one SDK class it uses.
+    if (!class_exists(ToolCallException::class)) {
+        class ToolCallException extends \RuntimeException
+        {
+        }
+    }
+}
+
+namespace {
+    use Lab\PhpMcp\LabTools;
+    use Mcp\Exception\ToolCallException;
+
+    require_once dirname(__DIR__).'/src/LabTools.php';
+
+    const USAGE = <<<'TXT'
+        usage: php tools/php-mcp/bin/php-lab <command> [args]
+          pages               list pages under hosts/php/public, count PHP files under hosts/php
+          lint <path>...      php -l on files under hosts/php (paths relative to hosts/php)
+          runtime             PHP version, PHP2Shell fix status, advisory ini settings (CLI values)
+        Output is JSON. Exit 0 ok, 1 lint errors, 2 refused or bad usage.
+        TXT;
+
+    $out = static function (mixed $data): void {
+        echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR), "\n";
+    };
+    $fail = static function (string $message): never {
+        fwrite(STDERR, "php-lab: {$message}\n");
+        exit(2);
+    };
+
+    $root = getenv('PHP_LAB_ROOT') ?: dirname(__DIR__, 3).'/hosts/php';
+    $args = array_slice($argv, 1);
+    $command = array_shift($args) ?? 'help';
+
+    try {
+        $tools = new LabTools($root);
+        switch ($command) {
+            case 'pages':
+                $out($tools->listPages());
+                exit(0);
+            case 'lint':
+                if ([] === $args) {
+                    $fail('lint needs at least one path, for example public/index.php');
+                }
+                $results = array_map(static fn (string $p): array => $tools->lint($p), $args);
+                $out(1 === count($results) ? $results[0] : $results);
+                exit(in_array(false, array_column($results, 'ok'), true) ? 1 : 0);
+            case 'runtime':
+                $out($tools->runtime());
+                exit(0);
+            case 'help':
+            case '--help':
+            case '-h':
+                echo USAGE, "\n";
+                exit(0);
+            default:
+                fwrite(STDERR, "php-lab: unknown command: {$command}\n".USAGE."\n");
+                exit(2);
+        }
+    } catch (ToolCallException|\InvalidArgumentException $e) {
+        $fail($e->getMessage());
+    }
+}

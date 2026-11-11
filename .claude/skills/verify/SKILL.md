@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-10-30"
+  updated: "2026-11-02"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -84,5 +84,12 @@ Run, in order, and stop at the first failure:
    @sveltejs/kit, vite or astro, run npm run -s pkg:diff -- <package> and summarise its
    watch lines in the commit message; ask before taking a version whose diff has a
    watch line nobody has read.
+19. If tools/php-mcp/src/, tools/php-mcp/bin/php-lab, .claude/skills/php-lab/ or
+   scripts/php-lab-cli-test.mjs changed: npm run -s php-lab:test (must end with
+   "php-lab-cli-test: all passed"; it builds a throwaway hosts/php in the OS temp folder
+   and needs no Composer packages). The CLI and the php-lab MCP server share LabTools,
+   so step 16 runs too. Keep the skill's allowed-tools to exactly
+   Bash(php tools/php-mcp/bin/php-lab *), and keep the CLI's JSON identical to what the
+   MCP tools return.
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.
