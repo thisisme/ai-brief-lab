@@ -37,7 +37,9 @@
     "aria:snap": "node scripts/aria-snap.mjs",
     "aria:test": "node scripts/aria-snap-test.mjs",
     "mcp:php:install": "composer install -d tools/php-mcp",
-    "mcp:php:test": "php tools/php-mcp/smoke.php"
+    "mcp:php:test": "php tools/php-mcp/smoke.php",
+    "git-ai:report": "node scripts/git-ai-report.mjs",
+    "git-ai:test": "node scripts/git-ai-report-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",

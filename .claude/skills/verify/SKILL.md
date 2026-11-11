@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-10-28"
+  updated: "2026-10-29"
 ---
 
 Run, in order, and stop at the first failure:
@@ -74,5 +74,11 @@ Run, in order, and stop at the first failure:
     stays read-only: no file writes, network calls or page execution. Nothing in
     tools/php-mcp/server.php or tools/php-mcp/src/ writes to stdout, which carries JSON-RPC.
     Keep mcp/sdk on ~0.9.0 until the smoke test passes on a newer version.
-    Fix mechanical failures (types, imports, lint) and re-run.
+    17. If scripts/git-ai-report.mjs or scripts/git-ai-report-test.mjs changed:
+   npm run -s git-ai:test (must end with "git-ai-report-test: all passed"; it builds a
+   throwaway repo in the OS temp folder). If .claude/settings.json changed:
+   npm run -s git-ai:report -- --weeks 1 must end with "0 warning(s)". Never hide or
+   rewrite Claude's commit trailer (attribution, includeCoAuthoredBy) in this repo: the
+   pilot report counts it. The report never prints author names or emails.
+Fix mechanical failures (types, imports, lint) and re-run.
     If something needs a design decision, stop and report file:line instead of committing.
