@@ -4,11 +4,14 @@
 import type Anthropic from '@anthropic-ai/sdk';
 
 type BetaMessageThread = ReturnType<Anthropic['beta']['messages']['thread']>;
+type ThreadParams = Parameters<Anthropic['beta']['messages']['thread']>[0];
 
 export type ThreadStoreOptions = {
 	model: string;
 	system: string;
 	maxTokens?: number;
+	/** More create() fields held for the whole thread, e.g. output_config or thinking from shapeRequest(). */
+	fields?: Record<string, unknown>;
 	/** Drop our copy this long after the last turn. The API keeps a thread 5 minutes. */
 	idleMs?: number;
 	/** Most conversations held at once; the oldest goes first. */
@@ -46,12 +49,13 @@ export function createThreadStore(client: Anthropic, opts: ThreadStoreOptions) {
 			if (!entry) {
 				entry = {
 					thread: client.beta.messages.thread({
+						...(opts.fields ?? {}),
 						model: opts.model,
 						max_tokens: opts.maxTokens ?? 1024,
 						system: opts.system,
 						// Top-level cache_control is a fixed field: same value on every turn.
 						cache_control: { type: 'ephemeral' }
-					}),
+					} as ThreadParams),
 					lastUsed: now
 				};
 			}
