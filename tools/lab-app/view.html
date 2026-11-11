@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stock card</title>
+<style>
+	:root { color-scheme: light dark; font: 14px/1.5 system-ui, sans-serif; }
+	body { margin: 0; padding: 12px; background: transparent; }
+	.row { display: flex; gap: 8px; margin-top: 10px; }
+	button { font: inherit; padding: 4px 10px; }
+	#log { font-size: 12px; opacity: .7; min-height: 1.5em; }
+</style>
+</head>
+<body>
+<stock-card aria-live="polite"></stock-card>
+<div class="row">
+	<button id="refresh" type="button" disabled>Refresh</button>
+	<button id="full" type="button" hidden>Full screen</button>
+</div>
+<p id="log" role="status"></p>
+<script type="module">
+/*__EXT_APPS__*/
+
+// A plain custom element: no framework, shadow DOM, attributes in, text out.
+class StockCard extends HTMLElement {
+	static observedAttributes = ['sku', 'name', 'qty', 'status'];
+	constructor() {
+		super();
+		this.attachShadow({ mode: 'open' }).innerHTML = `
+			<style>
+				:host { display: block; border: 1px solid #8884; border-radius: 8px; padding: 12px 14px; }
+				b { display: block; font-size: 15px; }
+				.qty { font-size: 28px; font-weight: 600; }
+				.ok { color: #2f7d4f } .low { color: #b06a00 } .out { color: #b3261e }
+			</style>
+			<b part="title"></b><span class="qty" part="qty"></span> <span part="label"></span>`;
+	}
+	attributeChangedCallback() {
+		const r = this.shadowRoot;
+		const status = this.getAttribute('status') ?? '';
+		r.querySelector('b').textContent = `${this.getAttribute('sku') ?? ''} ${this.getAttribute('name') ?? 'Waiting for data…'}`;
+		r.querySelector('.qty').textContent = this.getAttribute('qty') ?? '';
+		r.querySelector('.qty').className = `qty ${status}`;
+		r.querySelector('[part=label]').textContent = status ? `in stock (${status})` : '';
+	}
+}
+customElements.define('stock-card', StockCard);
+
+const { App } = globalThis.McpApps;
+const card = document.querySelector('stock-card');
+const log = document.querySelector('#log');
+const refresh = document.querySelector('#refresh');
+const full = document.querySelector('#full');
+let lastSku = null;
+
+function show(result) {
+	const s = result?.structuredContent;
+	if (result?.isError || !s) {
+		log.textContent = result?.content?.[0]?.text ?? 'No data';
+		return null;
+	}
+	lastSku = s.sku;
+	for (const k of ['sku', 'name', 'qty', 'status']) card.setAttribute(k, String(s[k]));
+	log.textContent = `Checked ${new Date(s.checkedAt).toLocaleTimeString()}`;
+	refresh.disabled = false;
+	return s;
+}
+
+// Tell the model the latest stock without a new chat turn. The host keeps only
+// the last update and sends it with the next user message.
+async function shareWithModel(s) {
+	if (!app.getHostCapabilities()?.updateModelContext) return;
+	const at = new Date(s.checkedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+	try {
+		await app.updateModelContext({
+			content: [{ type: 'text', text: `${s.sku} now shows ${s.qty} in stock (${s.status}), checked ${at}` }]
+		});
+	} catch (e) {
+		console.warn('updateModelContext failed', e);
+	}
+}
+
+function applyContext(ctx) {
+	if (ctx?.theme) document.documentElement.style.colorScheme = ctx.theme;
+	full.hidden = !(ctx?.availableDisplayModes ?? []).includes('fullscreen');
+}
+
+const app = new App({ name: 'Stock card', version: '0.1.0' });
+// Handlers go on before connect(), so the first tool-result isn't missed.
+app.ontoolresult = show;
+app.onhostcontextchanged = applyContext;
+refresh.onclick = async () => {
+	refresh.disabled = true;
+	log.textContent = 'Refreshing…';
+	const s = show(await app.callServerTool({ name: 'stock_status', arguments: { sku: lastSku } }));
+	if (s) await shareWithModel(s);
+};
+full.onclick = async () => {
+	const { mode } = await app.requestDisplayMode({ mode: 'fullscreen' });
+	log.textContent = `Display mode: ${mode}`;
+};
+await app.connect();
+applyContext(app.getHostContext());
+</script>
+</body>
+</html>

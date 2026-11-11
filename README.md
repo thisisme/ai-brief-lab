@@ -62,13 +62,16 @@ cp .env.example .env   # set PRODUCTS_API_URL
 | `npm run headless:probe`  | Check that `scripts/claude-p.sh` keeps forks off            |
 | `npm run models`          | Table of Claude models and their capabilities               |
 | `npm run agents:effort`   | Lint `effort` settings in `.claude/agents` and skills       |
+| `npm run build:check`     | Build with throwaway env values, so it never needs `.env`   |
+| `npm run app:serve`       | Start the lab-app MCP server (stdio)                        |
+| `npm run app:test`        | Test lab-app over MCP and in Chromium inside a fake host    |
 | `npm run playwright:install` | Install the project's Chromium into `node_modules` (optional) |
 
 Typical custom-element loop: `npm run elements:build`, `npm run elements:serve`, then `npm run elements:smoke` in another terminal.
 
 ### Playwright's Chromium
 
-Every Playwright script here (`elements:smoke`, `form:smoke`, `stepper:smoke`,
+Every Playwright script here (`app:test`, `elements:smoke`, `form:smoke`, `stepper:smoke`,
 `chat:smoke`, `aria:snap`, `kit:probe`) gets Chromium from `scripts/pw.mjs`, so they all
 share one copy in `node_modules/playwright-core/.local-browsers`. You don't need to install
 it yourself: the first script you run downloads it (about 95 MB), and so does the next run
@@ -77,5 +80,5 @@ network. New Playwright scripts import `chromium` from `./pw.mjs`, not from `pla
 
 The browser lives in the project, not in `~/Library/Caches/ms-playwright`, so a Claude Code
 sandbox can find it. On macOS, Chromium still can't start inside that sandbox, so run these
-scripts yourself (in Claude Code: `! npm run -s stepper:smoke`). The old user-wide cache can go
+scripts yourself (in Claude Code: `! npm run -s app:test`). The old user-wide cache can go
 once nothing else on your machine uses it.

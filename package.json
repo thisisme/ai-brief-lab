@@ -56,9 +56,14 @@
     "cc:channel": "node scripts/cc-channel.mjs",
     "cc:channel:test": "node scripts/cc-channel-test.mjs",
     "model:shape:test": "node scripts/model-shape-test.mjs",
-    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium-headless-shell"
+    "build:check": "LAB_SESSION_SECRET=$(openssl rand -hex 32) ANTHROPIC_API_KEY=build-check-placeholder PRODUCTS_API_URL=http://localhost.invalid/products vite build",
+    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium-headless-shell",
+    "app:test": "node scripts/app-test.mjs",
+    "app:serve": "node tools/lab-app/server.mjs"
   },
   "devDependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.7.5",
+    "@modelcontextprotocol/sdk": "^1.32.2",
     "@sveltejs/adapter-auto": "^8.0.0",
     "@sveltejs/adapter-node": "^6.0.0",
     "@sveltejs/kit": "^3.2.0",
@@ -70,7 +75,8 @@
     "svelte-check": "^4.6.0",
     "typescript": "^6.0.3",
     "vite": "^8.3.0",
-    "yaml": "^2.9.1"
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
   },
   "imports": {
     "#lib": "./src/lib/index.js",
