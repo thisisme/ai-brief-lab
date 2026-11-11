@@ -47,7 +47,9 @@
     "thread:test": "node scripts/thread-test.mjs",
     "thread:mock": "node scripts/thread-mock.mjs",
     "sampling:audit": "node scripts/sampling-audit.mjs",
-    "sampling:test": "node scripts/sampling-audit-test.mjs"
+    "sampling:test": "node scripts/sampling-audit-test.mjs",
+    "egress:audit": "node scripts/egress-audit.mjs",
+    "egress:test": "node scripts/egress-audit-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
