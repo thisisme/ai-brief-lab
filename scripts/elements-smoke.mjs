@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import { chromium } from './pw.mjs';
 
 const [url, ...tags] = process.argv.slice(2);
 const browser = await chromium.launch({

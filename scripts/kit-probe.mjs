@@ -7,7 +7,7 @@ import { spawn, execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { chromium } from 'playwright';
+import { chromium } from './pw.mjs';
 
 const versions = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 if (versions.length === 0) {

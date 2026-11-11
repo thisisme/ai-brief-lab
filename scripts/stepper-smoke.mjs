@@ -3,7 +3,7 @@
 //   npm run stepper:smoke         (needs `npm run elements:serve` running)
 //   node scripts/stepper-smoke.mjs http://127.0.0.1:8099/stepper.php
 // Exit 0 when every check prints "ok", 1 if any prints "FAIL".
-import { chromium } from 'playwright';
+import { chromium } from './pw.mjs';
 
 const url = process.argv[2] ?? 'http://127.0.0.1:8099/stepper.php';
 const browser = await chromium.launch(
