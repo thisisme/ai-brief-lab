@@ -41,7 +41,9 @@
     "git-ai:report": "node scripts/git-ai-report.mjs",
     "git-ai:test": "node scripts/git-ai-report-test.mjs",
     "pkg:diff": "node scripts/pkg-diff.mjs",
-    "kit:probe": "node scripts/kit-probe.mjs"
+    "kit:probe": "node scripts/kit-probe.mjs",
+    "php-lab:test": "node scripts/php-lab-cli-test.mjs",
+    "tool:cost": "node scripts/tool-cost.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
