@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-11-02"
+  updated: "2026-11-03"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -91,5 +91,12 @@ Run, in order, and stop at the first failure:
    so step 16 runs too. Keep the skill's allowed-tools to exactly
    Bash(php tools/php-mcp/bin/php-lab *), and keep the CLI's JSON identical to what the
    MCP tools return.
+20. If src/lib/server/claude-threads.ts, src/routes/api/chat/, scripts/thread-mock.mjs,
+   scripts/thread-test.mjs or the @anthropic-ai/sdk version in package.json changed:
+   npm run -s thread:test (must end with "thread-test: all passed"; it uses port 8090 and
+   needs no API key). Keep threads to long-lived servers (adapter-node, vite dev). system
+   and tools go only on the create; model and cache_control never change mid-thread.
+   Threads are not ZDR or HIPAA eligible: never route a conversation that needs either
+   through /api/chat.
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.
