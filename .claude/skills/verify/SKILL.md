@@ -6,7 +6,7 @@ license: Proprietary
 compatibility: Claude Code in the ai-brief-lab repo. Needs Node 22, npm, PHP 8 CLI, Composer 2 and git.
 metadata:
   owner: mats
-  updated: "2026-11-06"
+  updated: "2026-11-09"
 ---
 Run, in order, and stop at the first failure:
 1. GATE_NO_CACHE=1 npm run gate   (must print "gate: ok" or "gate: no code changes";
@@ -124,5 +124,13 @@ Run, in order, and stop at the first failure:
    created for a request handler sets maxRetries and fetch: capRetryAfter(...), so no
    request waits more than a few seconds inside the SDK. Never send the API's own error
    text to the browser: return toHttpFailure()'s message and log its log line.
+24. If .claude/settings.json, .claude/settings.local.json, scripts/cc-channel.mjs or
+   scripts/cc-channel-test.mjs changed, or claude --version differs from the version in
+   the newest LABS.md row: npm run -s cc:channel -- --strict (must end with "cc-channel: ok";
+   it runs npm view, so it needs the network). Keep autoUpdatesChannel "stable" in
+   .claude/settings.json; a personal "latest" goes only in .claude/settings.local.json.
+   Never lower minimumVersion or remove it without asking. Raise it in its own commit and
+   say why in the message. If scripts/cc-channel.mjs or scripts/cc-channel-test.mjs
+   changed: npm run -s cc:channel:test (must end with "cc-channel-test: all passed").
 Fix mechanical failures (types, imports, lint) and re-run.
 If something needs a design decision, stop and report file:line instead of committing.

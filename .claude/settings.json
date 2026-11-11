@@ -63,5 +63,7 @@
       "Read(./.env)",
       "Read(./.env.*)"
     ]
-  }
+  },
+  "autoUpdatesChannel": "stable",
+  "minimumVersion": "2.1.322"
 }

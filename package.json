@@ -52,7 +52,9 @@
     "egress:test": "node scripts/egress-audit-test.mjs",
     "errors:mock": "node scripts/error-mock.mjs",
     "errors:test": "node scripts/error-test.mjs",
-    "chat:smoke": "node scripts/chat-smoke.mjs"
+    "chat:smoke": "node scripts/chat-smoke.mjs",
+    "cc:channel": "node scripts/cc-channel.mjs",
+    "cc:channel:test": "node scripts/cc-channel-test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^8.0.0",
